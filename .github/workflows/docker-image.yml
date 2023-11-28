@@ -18,6 +18,8 @@ jobs:
       with:
         java-version: '21'
         distribution: 'zulu'
+    - name: Maven Install
+      run: mvn install
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag soj:$(date +%s) --tag soj:latest
     - name: Run
