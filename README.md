@@ -18,7 +18,8 @@ Create a .sj file
 
 ```java
 #!/usr/bin/env sj
-import static me.imlc.Sj.*;
+
+import static sj.Shell.*;
 
 public class Hello {
     public static void main(String[] args) {

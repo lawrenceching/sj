@@ -1,4 +1,4 @@
-package me.imlc;
+package sj;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 /**
  * The Sj class provides utility methods for executing shell commands and running tasks in virtual threads.
  */
-public class Sj {
+public class Shell {
 
     private static Executor vtExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
