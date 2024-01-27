@@ -56,28 +56,25 @@ public class Sj {
             }
             Files.writeString(tmpFilePath, command);
 
-            Process process = null;
-            process = Runtime.getRuntime().exec("bash %s".formatted(tmpFilePath.toAbsolutePath().toString()));
+            StringBuffer sb = new StringBuffer();
 
-            if (echo) {
-                inputStreamToConsole(process.getInputStream());
-            }
-            inputStreamToConsole(process.getErrorStream());
+            final Process process = Runtime.getRuntime().exec("bash %s".formatted(tmpFilePath.toAbsolutePath().toString()));
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append(System.lineSeparator());
+            CompletableFuture.allOf(
+                    run(() -> {
+                        inputStreamToStringBuffer(process.getErrorStream(), sb, true);
+                    }),
+                    run(() -> {
+                        inputStreamToStringBuffer(process.getInputStream(), sb, echo);
+                    })
+            ).join();
 
-            }
             return sb.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
     }
-
 
     public static String[] sh(String ... commands) {
         return sh(false, commands);
@@ -105,22 +102,24 @@ public class Sj {
         return output;
     }
 
-    public static void run(Runnable r) {
-        vtExecutor.execute(r);
+    public static CompletableFuture<Void> run(Runnable r) {
+        return CompletableFuture.runAsync(r, vtExecutor);
     }
 
-    public static void inputStreamToConsole(InputStream is) {
-        vtExecutor.execute(() -> {
+    public static void inputStreamToStringBuffer(InputStream is, StringBuffer sb, boolean echo) {
+        try {
             String line;
-            try {
-                BufferedReader errReader = new BufferedReader(new InputStreamReader(is));
-                while ((line = errReader.readLine()) != null) {
+            BufferedReader errReader = new BufferedReader(new InputStreamReader(is));
+            while ((line = errReader.readLine()) != null) {
+                if (echo) {
                     println(line);
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
+                sb.append(line).append(System.lineSeparator());
             }
-        });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static String toGitBashPath(String path) {
