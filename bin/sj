@@ -1,1 +1,7 @@
+#!/bin/bash
+if [ "$#" -ne 1 ]; then
+    echo "sj 0.0.1 https://github.com/lawrenceching/sj"
+    exit 0
+fi
+
 /usr/bin/env java -Dtrace=true --source 21 -cp ./*.jar:/etc/sj/* $1

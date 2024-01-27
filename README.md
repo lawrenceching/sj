@@ -9,8 +9,7 @@ Java 21
 ### Install sj
 
 ```bash
-sudo curl https://raw.githubusercontent.com/lawrenceching/sj/main/bin/sj > /usr/bin/sj
-sudo chmod +x sj 
+sudo curl -L https://raw.githubusercontent.com/lawrenceching/sj/main/bin/install.sh | bash
 ```
 
 ### Write Script

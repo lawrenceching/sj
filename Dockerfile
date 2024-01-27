@@ -1,11 +1,9 @@
 FROM openjdk:21
 LABEL authors="Lawrence Ching"
 
-WORKDIR /app
+WORKDIR /root
 
 COPY bin/sj /usr/bin/sj
-COPY target/sj-1.0-SNAPSHOT.jar /app/sj.jar
-COPY ./examples ./examples
-COPY ./Test.sj ./Test.sj
+COPY target/sj-1.0-SNAPSHOT.jar /etc/sj/sj.jar
+COPY examples/Hello.sj Hello.sj
 RUN chmod +x /usr/bin/sj
-RUN chmod +x *.sj
