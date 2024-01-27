@@ -1,0 +1,1 @@
+/usr/bin/env java -Dtrace=true --source 21 -cp ./*.jar $1

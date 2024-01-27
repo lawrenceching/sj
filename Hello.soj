@@ -1,9 +1,0 @@
-#!/bin/java --source 21 -cp *
-
-import static me.imlc.Soj.println;
-
-public class Hello {
-    public static void main(String[] args) {
-        println("Hello, world!");
-    }
-}
