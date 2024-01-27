@@ -21,6 +21,6 @@ jobs:
     - name: Maven Install
       run: mvn install
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag soj:$(date +%s) --tag soj:latest
+      run: docker build . --file Dockerfile --tag sj:$(date +%s) --tag sj:latest
     - name: Run
-      run: docker run soj:latest
+      run: docker run sj:latest
