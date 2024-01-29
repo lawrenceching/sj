@@ -1,5 +1,8 @@
 package sj;
 
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
+import org.jline.utils.InfoCmp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -126,5 +129,13 @@ public class Shell {
         return "/" + path.replace("\\", "/").replace(":", "");
     }
 
+
+    private static final String[] OPTIONS = {"apple", "banana"};
+    private static int selectedOption = 0;
+
+    private static final int KEY_SPACE = 32;
+    private static final int KEY_ESCAPE = 27;
+    private static final int KEY_ARROW_RIGHT = 67;
+    private static final int KEY_ARROW_LEFT = 68;
 
 }
